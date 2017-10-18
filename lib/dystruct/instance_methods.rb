@@ -1,11 +1,11 @@
-class Contextuable
+class Dystruct
   module InstanceMethods
     def initialize(hash = {})
       check_input_errors(hash)
       hash = hash.select{|k, v| _permitted.include?(k.to_sym) } if _only_permitted?
       @attrs = _defaults.merge(hash)
       attrs.each do |k, v|
-        define_contextuable_method(k, v)
+        define_dystruct_method(k, v)
       end
     end
 
@@ -76,18 +76,18 @@ class Contextuable
 
     def check_input_errors(hash)
       unless hash.class <= Hash
-        fail WrongArgument, "[Contextuable ERROR]: `#{self.class}` expects to receive a `Hash` or and object having `Hash` as ancestor."
+        fail WrongArgument, "[Dystruct ERROR]: `#{self.class}` expects to receive a `Hash` or and object having `Hash` as ancestor."
       end
 
       _required_args.map(&:to_sym).each do |r|
         unless hash.keys.map(&:to_sym).include?(r)
-          fail RequiredFieldNotPresent, "[Contextuable ERROR]: `#{self.class}` expect to be initialized with `#{r}` as an attribute."
+          fail RequiredFieldNotPresent, "[Dystruct ERROR]: `#{self.class}` expect to be initialized with `#{r}` as an attribute."
         end
       end
 
       _presence_required.map(&:to_sym).each do |r|
         if hash[r].nil?
-          fail PresenceRequired, "[Contextuable ERROR]: `#{self.class}` expects to receive an attribute named `#{r}` not beeing `nil`"
+          fail PresenceRequired, "[Dystruct ERROR]: `#{self.class}` expects to receive an attribute named `#{r}` not beeing `nil`"
         end
       end
     end

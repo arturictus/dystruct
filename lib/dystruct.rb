@@ -1,7 +1,7 @@
-class Contextuable
+class Dystruct
   VERSION = "0.4.0"
-  autoload :ClassMethods, 'contextuable/class_methods'
-  autoload :InstanceMethods, 'contextuable/instance_methods'
+  autoload :ClassMethods, 'dystruct/class_methods'
+  autoload :InstanceMethods, 'dystruct/instance_methods'
 
   class RequiredFieldNotPresent < ArgumentError; end
   class PresenceRequired < ArgumentError; end
@@ -18,11 +18,11 @@ class Contextuable
 
   def initialize(hash = {})
     unless hash.class <= Hash
-      fail WrongArgument, "[Contextuable ERROR]: `#{self.class}` expects to receive a `Hash` or and object having `Hash` as ancestor."
+      fail WrongArgument, "[Dystruct ERROR]: `#{self.class}` expects to receive a `Hash` or and object having `Hash` as ancestor."
     end
     @attrs = hash
     @attrs.each do |k, v|
-      define_contextuable_method(k, v)
+      define_dystruct_method(k, v)
     end
   end
 
@@ -61,10 +61,10 @@ class Contextuable
 
   def set_attribute(key, value)
     attrs[key] = value
-    define_contextuable_method(key, value)
+    define_dystruct_method(key, value)
   end
 
-  def define_contextuable_method(key, value)
+  def define_dystruct_method(key, value)
     define_singleton_method(key) { attrs.fetch(key) }
     define_singleton_method("#{key}_provided?") { true }
     define_singleton_method("#{key}_not_provided?") { false }

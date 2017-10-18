@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Contextuable do
+describe Dystruct do
   it 'has a version number' do
-    expect(Contextuable::VERSION).not_to be nil
+    expect(Dystruct::VERSION).not_to be nil
   end
 
-  class Example1 < Contextuable
+  class Example1 < Dystruct
     required :required
     aliases :hello, :greeting, :welcome
   end
@@ -51,7 +51,7 @@ describe Contextuable do
   end
 
   describe 'defaults' do
-    class Example2 < Contextuable
+    class Example2 < Dystruct
       defaults foo: :bar, bar: :foo
     end
     describe 'without overriding' do
@@ -75,7 +75,7 @@ describe Contextuable do
   end
 
   describe 'helper methods for provided' do
-    subject { Contextuable.new(name: 'hello', foo: 'foo', other_thing: :thing) }
+    subject { Dystruct.new(name: 'hello', foo: 'foo', other_thing: :thing) }
     it { expect(subject.hello_not_provided?).to eq true }
     it { expect(subject.hello_provided?).to eq false }
     it { expect(subject.foo_not_provided?).to eq false }
@@ -92,7 +92,7 @@ describe Contextuable do
   end
 
   describe 'Dynamic Assignment' do
-    class DynamicAssigment < Contextuable; end
+    class DynamicAssigment < Dystruct; end
     subject { DynamicAssigment.new(foo: :hello, bla: :bla) }
     before { subject.bar = :bar }
     it '#bar=' do
@@ -108,7 +108,7 @@ describe Contextuable do
     end
   end
   describe 'Permit' do
-    class Permit < Contextuable
+    class Permit < Dystruct
       permit :foo, :hello
     end
     subject { Permit.new(foo: :hello, bla: :bla) }

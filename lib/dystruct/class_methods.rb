@@ -1,4 +1,4 @@
-class Contextuable
+class Dystruct
   module ClassMethods
 
     def settings

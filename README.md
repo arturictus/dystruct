@@ -1,4 +1,4 @@
-# Contextuable
+# Dystruct
 
 Better Structs for many applications.
 
@@ -7,7 +7,7 @@ Better Structs for many applications.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'contextuable'
+gem 'dystruct'
 ```
 
 And then execute:
@@ -16,14 +16,14 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install contextuable
+    $ gem install dystruct
 
 ## Usage
 
 __Extended OpenStruct:__
 
 ```ruby
-  context = Contextuable.new(name: 'John', surname: 'Doe')
+  context = Dystruct.new(name: 'John', surname: 'Doe')
   context.name # => 'John'
   context.name_provided? # => true
   context.surname # => 'Doe'
@@ -38,7 +38,7 @@ __Extended OpenStruct:__
 
 _more complex example_
 ```ruby
-class Input < Contextuable
+class Input < Dystruct
   permit  :name, :city, :address, :phone_number, :free_text, :country_code,
     :country, :zip, :types
   defaults types: ['lodging']
@@ -73,7 +73,7 @@ i.not_permitted
 
 **no_method_error**
 ```ruby
-class Example < Contextuable
+class Example < Dystruct
   no_method_error false
 end
 
@@ -81,7 +81,7 @@ Example.new(foo: :bar).hello # => nil
 ```
 
 ```ruby
-class Example < Contextuable
+class Example < Dystruct
   no_method_error
 end
 
@@ -90,17 +90,17 @@ Example.new(foo: :bar).hello # => => NoMethodError: undefined method
 
 **required**
 ```ruby
-class Example < Contextuable
+class Example < Dystruct
   required :required_arg
 end
 
 Example.new(foo: :bar)
-#=> Error Contextuable::RequiredFieldNotPresent
+#=> Error Dystruct::RequiredFieldNotPresent
 ```
 
 **aliases**
 ```ruby
-class Example < Contextuable
+class Example < Dystruct
   aliases :hello, :greeting, :welcome
 end
 ex = Example.new(hello: 'Hey!')
@@ -115,7 +115,7 @@ ex.welcome
 
 **defaults**
 ```ruby
-class Example2 < Contextuable
+class Example2 < Dystruct
   defaults foo: :bar, bar: :foo
 end
 ex = Example2.new
@@ -136,14 +136,14 @@ ex2.bar
 
 **ensure_presence**
 ```ruby
-class EnsurePresence < Contextuable
+class EnsurePresence < Dystruct
   ensure_presence :foo
 end
 EnsurePresence.new(hello: 'asdf')
-#=> Error: Contextuable::PresenceRequired
+#=> Error: Dystruct::PresenceRequired
 
 EnsurePresence.new(foo: nil)
-#=> Error: Contextuable::PresenceRequired
+#=> Error: Dystruct::PresenceRequired
 
 EnsurePresence.new(foo: '').foo #=> ""
 ```
@@ -164,7 +164,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/arturictus/contextuable. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/arturictus/dystruct. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
 
 ## License
